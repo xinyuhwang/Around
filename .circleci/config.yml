@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/hl/Around
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+          docker build -t hailee001/around .
+          docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
+          docker push hailee001/around
+
